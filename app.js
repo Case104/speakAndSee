@@ -1,31 +1,34 @@
-var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
-var recognition = new SpeechRecognition();
-recognition.lang = 'en-US';
-recognition.continuous = true;
+$(document).ready(function(){
 
-$('#start-search').click(function(){
-	var resultIndex = 0;
+	var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+	var recognition = new SpeechRecognition();
+	recognition.lang = 'en-US';
+	recognition.continuous = true;
 
-	recognition.start();
+	$('#start-search').click(function(){
+		var resultIndex = 0;
 
-	recognition.onresult = function(event){
-		var speechQuery = event.results[resultIndex][0].transcript;
-		resultIndex += 1;
+		recognition.start();
 
-		$.ajax({
-			url: 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + apiKey + '&format=json&nojsoncallback=1&text=' + speechQuery +'&extras=url_m&per_page=3',
-			dataType: 'json'
-		}).then(function(response){
-			response.photos.photo.forEach(function(photo){
-				$('#search-results').prepend("<div class='img-result'><img src='" + photo.url_m + "'</div>");
+		recognition.onresult = function(event){
+			var speechQuery = event.results[resultIndex][0].transcript;
+			resultIndex += 1;
+
+			$.ajax({
+				url: 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + apiKey + '&format=json&nojsoncallback=1&text=' + speechQuery +'&extras=url_m&per_page=3',
+				dataType: 'json'
+			}).then(function(response){
+				response.photos.photo.forEach(function(photo){
+					$('#search-results').prepend("<div class='img-result'><img src='" + photo.url_m + "'</div>");
+				});
 			});
-		});
-		
-	};
+			
+		};
 
-	$('#end-search').click(function(){
-		recognition.stop();
-	})
+		$('#end-search').click(function(){
+			recognition.stop();
+		})
 
+	});
 
 });
