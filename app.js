@@ -1,20 +1,19 @@
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+var recognition = new SpeechRecognition();
+recognition.lang = 'en-US';
+recognition.continuous = true;
 
 $('#start-search').click(function(){
-	this.textContent = 'Listening';
-
-	var recognition = new SpeechRecognition();
-	recognition.lang = 'en-US';
+	var resultIndex = 0;
 
 	recognition.start();
 
 	recognition.onresult = function(event){
-		recognition.stop();
-		$('#start-search').html('Search again!');
-		var speechQuery = event.results[0][0].transcript;
+		var speechQuery = event.results[resultIndex][0].transcript;
+		resultIndex += 1;
 
 		$.ajax({
-			url: 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + apiKey + '&format=json&nojsoncallback=1&text=' + speechQuery +'&extras=url_m&per_page=10',
+			url: 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + apiKey + '&format=json&nojsoncallback=1&text=' + speechQuery +'&extras=url_m&per_page=3',
 			dataType: 'json'
 		}).then(function(response){
 			response.photos.photo.forEach(function(photo){
@@ -23,4 +22,10 @@ $('#start-search').click(function(){
 		});
 		
 	};
+
+	$('#end-search').click(function(){
+		recognition.stop();
+	})
+
+
 });
