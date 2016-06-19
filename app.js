@@ -27,7 +27,7 @@ $(document).ready(function(){
 
 		$('#end-search').click(function(){
 			recognition.stop();
-		})
+		});
 
 	});
 
