@@ -1,5 +1,5 @@
 # Speak and See
-Speak and See is an app that will allow you to speak a word phrase and continually search for matches on flickr.
+Speak and See is an app that will allow you to speak a word phrase and continually search for matches from flickr.
 
 To use the app launch it on a local server and press the 'Start Search' button. Agree to the permissions autorization prompt, and then you can start speaking. A small pause will deliminate your query into a word or phrase, and then show matches as pictures from the Flickr api.
 
