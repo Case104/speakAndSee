@@ -22,13 +22,15 @@ $(document).ready(function(){
 					$('#search-results').prepend("<div class='img-result'><img src='" + photo.url_m + "'</div>");
 				});
 			});
-			
 		};
+		$(this).hide();
+		$('#end-search').show();
+	});
 
-		$('#end-search').click(function(){
-			recognition.stop();
-		});
-
+	$('#end-search').click(function(){
+		recognition.stop();
+		$(this).hide();
+		$('#start-search').show();
 	});
 
 });
