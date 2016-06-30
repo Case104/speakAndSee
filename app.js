@@ -21,8 +21,13 @@ $(document).ready(function(){
 				response.photos.photo.forEach(function(photo){
 					$('#search-results').prepend("<div class='img-result'><img src='" + photo.url_m + "'</div>");
 				});
+			}).then(function(){
+				$('#current-search').text('Last search: ' + speechQuery);
 			});
 		};
+
+
+
 		$(this).hide();
 		$('#end-search').show();
 	});
