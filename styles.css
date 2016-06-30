@@ -83,6 +83,7 @@ button:hover {
 }
 
 #end-search {
+	display: none;
 	outline: none;
 	text-decoration: none;
   background: white;
